@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { BASE_URL } from "./utils/constants";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -20,7 +21,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/api/:path*",
-        destination: "http://localhost:8000/api/v1/:path*", // proxy to Express
+        destination: `${BASE_URL}/api/v1/:path*`, // proxy to Express
         statusCode: 307,
       },
     ];

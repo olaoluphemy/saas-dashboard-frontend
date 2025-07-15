@@ -3,6 +3,7 @@ import Avatar from "./Avatar";
 import { P } from "./Paragraph";
 import Table from "./Table";
 import { cookies } from "next/headers";
+import { BASE_URL } from "@/utils/constants";
 
 interface UsersData {
   name: string;
@@ -14,7 +15,7 @@ export default async function RecentUsers() {
   const token = (await cookies()).get("jwt")?.value;
   console.log({ token });
 
-  const res = await fetch("http://localhost:8000/api/v1/users/recent-signups", {
+  const res = await fetch(`${BASE_URL}/api/v1/users/recent-signups`, {
     method: "GET",
     headers: {
       authorization: `Bearer ${token}`,
