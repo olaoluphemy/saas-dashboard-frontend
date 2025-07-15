@@ -28,6 +28,7 @@ const initialState: State = {
     lastName: "",
     email: "",
     avatar: "",
+    id: "",
   },
   isLoading: false,
 };
