@@ -29,9 +29,10 @@ export default function LoginForm() {
       setIsLoading(true);
       const data = await login(email, password);
 
-      if (data) dispatch({ type: "user/setUser", payload: data });
+      if (data) dispatch({ type: "user/setUser", payload: data.user });
 
       router.replace("/");
+      localStorage.setItem("jwt", data?.token || "");
       console.log("redirecting............");
     } catch (err) {
       setError((err as { message: string }).message);

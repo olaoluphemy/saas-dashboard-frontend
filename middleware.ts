@@ -12,8 +12,9 @@ export async function middleware(request: NextRequest) {
 
   if (protectedRoutes.includes(request.nextUrl.pathname)) {
     if (!token) {
-      // console.log("user is not logged in");
-      return NextResponse.redirect(new URL("/login", request.url));
+      console.log("user is not logged in");
+      console.log({ token });
+      // return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 

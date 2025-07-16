@@ -4,7 +4,7 @@ import { BASE_URL } from "../constants";
 export async function login(
   email: string,
   password: string
-): Promise<User | undefined> {
+): Promise<{ token: string; user: User } | undefined> {
   try {
     if (!email || !password) return;
 
@@ -17,9 +17,12 @@ export async function login(
       credentials: "include",
     });
 
-    const data = (await res.json()) as { status: string; data: { user: User } };
+    const data = (await res.json()) as {
+      status: string;
+      data: { token: string; user: User };
+    };
 
-    if (res.ok) return data.data.user;
+    if (res.ok) return data.data;
 
     throw new Error(
       (data as unknown as { status: string; message: string }).message
