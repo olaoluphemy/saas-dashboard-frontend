@@ -1,4 +1,5 @@
 import { User } from "@/app/_components/user/payload";
+import { BASE_URL } from "../constants";
 
 export async function login(
   email: string,
@@ -7,7 +8,7 @@ export async function login(
   try {
     if (!email || !password) return;
 
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(`${BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -32,7 +33,7 @@ export async function login(
 
 export async function logout() {
   try {
-    const res = await fetch("/api/auth/logout", {
+    const res = await fetch(`${BASE_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -61,7 +62,7 @@ export async function updateUser(
   try {
     if (Object.values(userData).every((cur) => !cur) || !userId) return;
 
-    const res = await fetch(`/api/users/${userId}`, {
+    const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -96,7 +97,7 @@ export async function updatePassword(
 
     // console.log(userData);
 
-    const res = await fetch(`/api/users/${userId}/update-password`, {
+    const res = await fetch(`${BASE_URL}/api/users/${userId}/update-password`, {
       method: "POST",
       credentials: "include",
       headers: {

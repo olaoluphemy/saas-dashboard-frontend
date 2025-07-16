@@ -1,5 +1,6 @@
 "use client";
 
+import { BASE_URL } from "@/utils/constants";
 // import { test } from "@/utils/data";
 import Avatar from "./Avatar";
 import { P } from "./Paragraph";
@@ -31,7 +32,7 @@ export default function RecentUsers() {
 
   useEffect(() => {
     async function getRecentSignups() {
-      const res = await fetch(`/api/v1/users/recent-signups`, {
+      const res = await fetch(`${BASE_URL}/api/v1/users/recent-signups`, {
         method: "GET",
         credentials: "include",
       });

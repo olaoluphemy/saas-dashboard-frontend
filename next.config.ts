@@ -19,11 +19,11 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true, // or false for temporary redirect
       },
-      {
-        source: "/api/:path*",
-        destination: `${BASE_URL}/api/v1/:path*`, // proxy to Express
-        statusCode: 307,
-      },
+      // {
+      //   source: "/api/:path*",
+      //   destination: `${BASE_URL}/api/v1/:path*`, // proxy to Express
+      //   statusCode: 307,
+      // },
     ];
   },
 };
