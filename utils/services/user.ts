@@ -8,7 +8,7 @@ export async function login(
   try {
     if (!email || !password) return;
 
-    const res = await fetch(`${BASE_URL}/api/auth/login`, {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -33,7 +33,7 @@ export async function login(
 
 export async function logout() {
   try {
-    const res = await fetch(`${BASE_URL}/api/auth/logout`, {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -62,7 +62,7 @@ export async function updateUser(
   try {
     if (Object.values(userData).every((cur) => !cur) || !userId) return;
 
-    const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
+    const res = await fetch(`${BASE_URL}/api/v1/users/${userId}`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -97,14 +97,17 @@ export async function updatePassword(
 
     // console.log(userData);
 
-    const res = await fetch(`${BASE_URL}/api/users/${userId}/update-password`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    const res = await fetch(
+      `${BASE_URL}/api/v1/users/${userId}/update-password`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    );
 
     const data = (await res.json()) as { status: string; message: string };
 
