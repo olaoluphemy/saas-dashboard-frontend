@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("jwt")?.value;
-  console.log(token);
+  console.log(token, "chaii mehn");
   //   const isAuthenticated = token && (await verifyJWT(token));
 
   const protectedRoutes = ["/", "/dashboard", "/settings"];

@@ -32,12 +32,15 @@ export default function LoginForm() {
       if (data) dispatch({ type: "user/setUser", payload: data });
 
       router.replace("/");
+      console.log("redirecting............");
     } catch (err) {
       setError((err as { message: string }).message);
     } finally {
       setIsLoading(false);
     }
   }
+
+  console.log("mounted well");
 
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-white-100 transition-colors duration-[300ms] ease dark:bg-gray-900 ">
