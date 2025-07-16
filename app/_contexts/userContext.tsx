@@ -2,6 +2,7 @@
 
 import { ActionDispatch, createContext, useEffect, useReducer } from "react";
 import { User } from "../_components/user/payload";
+import { BASE_URL } from "@/utils/constants";
 
 type Action =
   | { type: "user/setUser"; payload: User }
@@ -52,7 +53,7 @@ function UserProvider({
   user,
 }: {
   children: React.ReactNode;
-  user: User;
+  user?: User;
 }) {
   const [state, dispatch] = useReducer<State, [action: Action]>(
     reducer,
@@ -60,7 +61,22 @@ function UserProvider({
   );
 
   useEffect(() => {
-    dispatch({ type: "user/setUser", payload: user });
+    async function getMe() {
+      const res = await fetch(`${BASE_URL}/api/v1/users/current-user`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const data: { status: string; data: { user: User } } = await res.json();
+
+      dispatch({ type: "user/setUser", payload: data.data.user });
+    }
+
+    getMe();
+  }, []);
+
+  useEffect(() => {
+    if (user) dispatch({ type: "user/setUser", payload: user });
     // console.log({ user });
   }, [user]);
 

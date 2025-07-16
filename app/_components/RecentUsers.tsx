@@ -1,9 +1,11 @@
-import { test } from "@/utils/data";
+"use client";
+
+// import { test } from "@/utils/data";
 import Avatar from "./Avatar";
 import { P } from "./Paragraph";
 import Table from "./Table";
-import { cookies } from "next/headers";
 import { BASE_URL } from "@/utils/constants";
+import { useEffect, useState } from "react";
 
 interface UsersData {
   name: string;
@@ -11,20 +13,43 @@ interface UsersData {
   status: string;
 }
 
-export default async function RecentUsers() {
-  const token = (await cookies()).get("jwt")?.value;
-  console.log({ token });
+export default function RecentUsers() {
+  // const token = (await cookies()).get("jwt")?.value;
+  // console.log({ token });
 
-  const res = await fetch(`${BASE_URL}/api/v1/users/recent-signups`, {
-    method: "GET",
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  // const res = await fetch(`${BASE_URL}/api/v1/users/recent-signups`, {
+  //   method: "GET",
+  //   headers: {
+  //     authorization: `Bearer ${token}`,
+  //   },
+  // });
 
-  const recentSignups = await res.json();
+  // const recentSignups = await res.json();
 
-  console.log({ recentSignups });
+  // console.log({ recentSignups });
+
+  const [recentSignups, setRecentSignUps] = useState<UsersData[]>();
+
+  useEffect(() => {
+    async function getRecentSignups() {
+      const res = await fetch(`${BASE_URL}/api/v1/users/recent-signups`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const data: { status: string; data: { users: UsersData[] } } =
+        await res.json();
+
+      setRecentSignUps(data.data.users);
+    }
+
+    getRecentSignups();
+  }, []);
+
+  if (!recentSignups)
+    return (
+      <div className="h-[260px] md:h-[400px] 2xl:h-[600px] bg-gray-200 dark:opacity-20 animate-pulse rounded-xl"></div>
+    );
 
   return (
     <Table<UsersData>
@@ -32,7 +57,7 @@ export default async function RecentUsers() {
       colData={["Name", "Signup Date", "Status", "xxx"]}
       tableStyle="py-2 rounded-xl"
       tableheadStyle="py-4 border-b border-white-200 dark:border-gray-700"
-      rowData={test}
+      rowData={recentSignups || []}
       render={(data, i) => (
         <ul
           key={i}

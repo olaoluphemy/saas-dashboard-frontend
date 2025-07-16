@@ -29,7 +29,7 @@ function Page() {
           ))}
         </div>
 
-        <div className="!w-full h-[260px] md:h-[400px] 2xl:h-[600px] relative transition-colors duration-[300ms] ease dark:bg-gray-900 p-[1rem] rounded-xl">
+        <div className="!w-full h-[260px] md:h-[400px] 2xl:h-[600px] relative transition-colors duration-[300ms] ease dark:bg-gray-900 rounded-xl">
           <Suspense
             fallback={
               <div className="h-[260px] md:h-[400px] 2xl:h-[600px] bg-gray-500 animate-pulse"></div>
