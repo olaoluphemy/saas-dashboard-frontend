@@ -13,7 +13,6 @@ import {
 import { Bar } from "react-chartjs-2";
 import { ChartData } from "./user/payload";
 import { computeData } from "@/utils/helpers";
-import { BASE_URL } from "@/utils/constants";
 
 ChartJS.register(
   CategoryScale,
@@ -43,7 +42,7 @@ export default function BarChart() {
 
   useEffect(() => {
     async function getChartData() {
-      const res = await fetch(`${BASE_URL}/api/v1/users/monthly-signups`, {
+      const res = await fetch(`/api/v1/users/monthly-signups`, {
         method: "GET",
         credentials: "include",
       });

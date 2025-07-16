@@ -2,7 +2,6 @@
 
 import { ActionDispatch, createContext, useEffect, useReducer } from "react";
 import { User } from "../_components/user/payload";
-import { BASE_URL } from "@/utils/constants";
 
 type Action =
   | { type: "user/setUser"; payload: User }
@@ -62,7 +61,7 @@ function UserProvider({
 
   useEffect(() => {
     async function getMe() {
-      const res = await fetch(`${BASE_URL}/api/v1/users/current-user`, {
+      const res = await fetch(`/api/v1/users/current-user`, {
         method: "GET",
         credentials: "include",
       });
